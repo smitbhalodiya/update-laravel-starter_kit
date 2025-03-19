@@ -23,7 +23,6 @@ new #[Layout('components.layouts.auth')] class extends Component {
     public function mount(string $token): void
     {
         $this->token = $token;
-
         $this->email = request()->string('email');
     }
 
@@ -38,9 +37,6 @@ new #[Layout('components.layouts.auth')] class extends Component {
             'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        // Here we will attempt to reset the user's password. If it is successful we
-        // will update the password on an actual user model and persist it to the
-        // database. Otherwise we will parse the error and return the response.
         $status = Password::reset(
             $this->only('email', 'password', 'password_confirmation', 'token'),
             function ($user) {
@@ -53,61 +49,91 @@ new #[Layout('components.layouts.auth')] class extends Component {
             }
         );
 
-        // If the password was successfully reset, we will redirect the user back to
-        // the application's home authenticated view. If there is an error we can
-        // redirect them back to where they came from with their error message.
         if ($status != Password::PasswordReset) {
             $this->addError('email', __($status));
-
             return;
         }
 
         Session::flash('status', __($status));
-
         $this->redirectRoute('login', navigate: true);
     }
 }; ?>
 
-<div class="flex flex-col gap-6">
-    <x-auth-header :title="__('Reset password')" :description="__('Please enter your new password below')" />
+<div>
+    <h4 class="mb-1">{{ __('Reset Password') }} 🔑</h4>
+    <p class="mb-6">{{ __('Your new password must be different from previously used passwords') }}</p>
 
     <!-- Session Status -->
-    <x-auth-session-status class="text-center" :status="session('status')" />
+    @if (session('status'))
+        <div class="alert alert-info mb-4">
+            {{ session('status') }}
+        </div>
+    @endif
 
-    <form wire:submit="resetPassword" class="flex flex-col gap-6">
-        <!-- Email Address -->
-        <flux:input
-            wire:model="email"
-            :label="__('Email')"
-            type="email"
-            required
-            autocomplete="email"
-        />
+    <form wire:submit="resetPassword" class="mb-6">
+        <div class="mb-6">
+            <label for="email" class="form-label">{{ __('Email') }}</label>
+            <input
+                wire:model="email"
+                type="email"
+                class="form-control @error('email') is-invalid @enderror"
+                id="email"
+                required
+                autocomplete="email"
+                placeholder="{{ __('Enter your email') }}"
+            >
+            @error('email')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
 
-        <!-- Password -->
-        <flux:input
-            wire:model="password"
-            :label="__('Password')"
-            type="password"
-            required
-            autocomplete="new-password"
-            :placeholder="__('Password')"
-        />
+        <div class="mb-6 form-password-toggle">
+            <label class="form-label" for="password">{{ __('New Password') }}</label>
+            <div class="input-group input-group-merge">
+                <input
+                    wire:model="password"
+                    type="password"
+                    class="form-control @error('password') is-invalid @enderror"
+                    id="password"
+                    required
+                    autocomplete="new-password"
+                    placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                >
+                <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                @error('password')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
+        </div>
 
-        <!-- Confirm Password -->
-        <flux:input
-            wire:model="password_confirmation"
-            :label="__('Confirm password')"
-            type="password"
-            required
-            autocomplete="new-password"
-            :placeholder="__('Confirm password')"
-        />
+        <div class="mb-6 form-password-toggle">
+            <label class="form-label" for="password_confirmation">{{ __('Confirm Password') }}</label>
+            <div class="input-group input-group-merge">
+                <input
+                    wire:model="password_confirmation"
+                    type="password"
+                    class="form-control @error('password_confirmation') is-invalid @enderror"
+                    id="password_confirmation"
+                    required
+                    autocomplete="new-password"
+                    placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                >
+                <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                @error('password_confirmation')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
+        </div>
 
-        <div class="flex items-center justify-end">
-            <flux:button type="submit" variant="primary" class="w-full">
-                {{ __('Reset password') }}
-            </flux:button>
+        <button type="submit" class="btn btn-primary d-grid w-100 mb-6">
+            {{ __('Set New Password') }}
+        </button>
+
+        <div class="text-center">
+            <a href="{{ route('login') }}" class="d-flex justify-content-center" wire:navigate>
+                <i class="bx bx-chevron-left scaleX-n1-rtl me-1"></i>
+                {{ __('Back to login') }}
+            </a>
         </div>
     </form>
 </div>

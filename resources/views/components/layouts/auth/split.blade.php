@@ -1,43 +1,57 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark">
-    <head>
-        @include('partials.head')
-    </head>
-    <body class="min-h-screen bg-white antialiased dark:bg-linear-to-b dark:from-neutral-950 dark:to-neutral-900">
-        <div class="relative grid h-dvh flex-col items-center justify-center px-8 sm:px-0 lg:max-w-none lg:grid-cols-2 lg:px-0">
-            <div class="bg-muted relative hidden h-full flex-col p-10 text-white lg:flex dark:border-r dark:border-neutral-800">
-                <div class="absolute inset-0 bg-neutral-900"></div>
-                <a href="{{ route('home') }}" class="relative z-20 flex items-center text-lg font-medium" wire:navigate>
-                    <span class="flex h-10 w-10 items-center justify-center rounded-md">
-                        <x-app-logo-icon class="mr-2 h-7 fill-current text-white" />
-                    </span>
-                    {{ config('app.name', 'Laravel') }}
-                </a>
+@extends('layouts.commonMaster')
 
-                @php
-                    [$message, $author] = str(Illuminate\Foundation\Inspiring::quotes()->random())->explode('-');
-                @endphp
+@section('title', 'Login - ' . config('app.name'))
 
-                <div class="relative z-20 mt-auto">
-                    <blockquote class="space-y-2">
-                        <flux:heading size="lg">&ldquo;{{ trim($message) }}&rdquo;</flux:heading>
-                        <footer><flux:heading>{{ trim($author) }}</flux:heading></footer>
-                    </blockquote>
-                </div>
-            </div>
-            <div class="w-full lg:p-8">
-                <div class="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
-                    <a href="{{ route('home') }}" class="z-20 flex flex-col items-center gap-2 font-medium lg:hidden" wire:navigate>
-                        <span class="flex h-9 w-9 items-center justify-center rounded-md">
-                            <x-app-logo-icon class="size-9 fill-current text-black dark:text-white" />
-                        </span>
+@section('page-style')
+@vite([
+    'resources/assets/vendor/scss/pages/page-auth.scss'
+])
+@endsection
 
-                        <span class="sr-only">{{ config('app.name', 'Laravel') }}</span>
-                    </a>
-                    {{ $slot }}
-                </div>
-            </div>
+@section('layoutContent')
+<div class="authentication-wrapper authentication-cover">
+  <!-- Logo -->
+  <a href="{{url('/')}}" class="auth-cover-brand d-flex align-items-center gap-2">
+      <span class="app-brand-logo demo"><x-app-logo-icon /></span>
+      <span class="app-brand-text demo text-heading fw-bold">{{config('app.name')}}</span>
+  </a>
+  <!-- /Logo -->
+  <div class="authentication-inner row m-0">
+    <!-- /Left Text -->
+    <div class="d-none d-lg-flex col-lg-7 col-xl-8 align-items-center p-5">
+      <div class="w-100 d-flex justify-content-center">
+        <img src="{{asset('assets/img/illustrations/boy-with-rocket-light.png')}}" class="img-fluid" alt="Login image" width="700" data-app-dark-img="illustrations/boy-with-rocket-dark.png" data-app-light-img="illustrations/boy-with-rocket-light.png">
+      </div>
+    </div>
+    <!-- /Left Text -->
+    <!-- Content -->
+    <div class="d-flex col-12 col-lg-5 col-xl-4 align-items-center authentication-bg p-sm-12 p-6">
+      <div class="w-px-400 mx-auto mt-12 pt-5">
+        {{ $slot }}
+        <div class="divider my-6">
+          <div class="divider-text">or</div>
         </div>
-        @fluxScripts
-    </body>
-</html>
+
+        <div class="d-flex justify-content-center">
+          <a href="javascript:;" class="btn btn-sm btn-icon rounded-circle btn-text-facebook me-1_5">
+            <i class='bx bxl-facebook-circle'></i>
+          </a>
+
+          <a href="javascript:;" class="btn btn-sm btn-icon rounded-circle btn-text-twitter me-1_5">
+            <i class="tf-icons bx bxl-twitter"></i>
+          </a>
+
+          <a href="javascript:;" class="btn btn-sm btn-icon rounded-circle btn-text-github me-1_5">
+            <i class='bx bxl-github'></i>
+          </a>
+
+          <a href="javascript:;" class="btn btn-sm btn-icon rounded-circle btn-text-google-plus">
+            <i class="tf-icons bx bxl-google"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    <!-- /Content -->
+  </div>
+</div>
+@endsection

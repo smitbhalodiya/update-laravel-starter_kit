@@ -32,26 +32,46 @@ new #[Layout('components.layouts.auth')] class extends Component {
     }
 }; ?>
 
-<div class="flex flex-col gap-6">
-    <x-auth-header
-        :title="__('Confirm password')"
-        :description="__('This is a secure area of the application. Please confirm your password before continuing.')"
-    />
+<div>
+    <h4 class="mb-1">{{ __('Security Verification') }} 🔐</h4>
+    <p class="mb-6">{{ __('This is a secure area. Please confirm your password before continuing.') }}</p>
 
     <!-- Session Status -->
-    <x-auth-session-status class="text-center" :status="session('status')" />
+    @if (session('status'))
+        <div class="alert alert-info mb-4">
+            {{ session('status') }}
+        </div>
+    @endif
 
-    <form wire:submit="confirmPassword" class="flex flex-col gap-6">
-        <!-- Password -->
-        <flux:input
-            wire:model="password"
-            :label="__('Password')"
-            type="password"
-            required
-            autocomplete="new-password"
-            :placeholder="__('Password')"
-        />
+    <form wire:submit="confirmPassword" class="mb-6">
+        <div class="mb-6 form-password-toggle">
+            <label class="form-label" for="password">{{ __('Password') }}</label>
+            <div class="input-group input-group-merge">
+                <input
+                    wire:model="password"
+                    type="password"
+                    class="form-control @error('password') is-invalid @enderror"
+                    id="password"
+                    required
+                    autocomplete="current-password"
+                    placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                >
+                <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                @error('password')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
+        </div>
 
-        <flux:button variant="primary" type="submit" class="w-full">{{ __('Confirm') }}</flux:button>
+        <button type="submit" class="btn btn-primary d-grid w-100 mb-6">
+            {{ __('Confirm Password') }}
+        </button>
     </form>
+
+    <div class="text-center">
+        <a href="{{ route('dashboard') }}" class="d-flex justify-content-center" wire:navigate>
+            <i class="bx bx-chevron-left scaleX-n1-rtl me-1"></i>
+            {{ __('Back to dashboard') }}
+        </a>
+    </div>
 </div>

@@ -14,12 +14,10 @@ new #[Layout('components.layouts.auth')] class extends Component {
     {
         if (Auth::user()->hasVerifiedEmail()) {
             $this->redirectIntended(default: route('dashboard', absolute: false), navigate: true);
-
             return;
         }
 
         Auth::user()->sendEmailVerificationNotification();
-
         Session::flash('status', 'verification-link-sent');
     }
 
@@ -29,29 +27,27 @@ new #[Layout('components.layouts.auth')] class extends Component {
     public function logout(Logout $logout): void
     {
         $logout();
-
         $this->redirect('/', navigate: true);
     }
 }; ?>
 
-<div class="mt-4 flex flex-col gap-6">
-    <flux:text class="text-center">
-        {{ __('Please verify your email address by clicking on the link we just emailed to you.') }}
-    </flux:text>
+<div>
+    <h4 class="mb-1">{{ __('Verify Your Email') }} 📧</h4>
+    <p class="mb-6">{{ __('Please verify your email address by clicking on the link we just emailed to you.') }}</p>
 
     @if (session('status') == 'verification-link-sent')
-        <flux:text class="text-center font-medium !dark:text-green-400 !text-green-600">
+        <div class="alert alert-success mb-4">
             {{ __('A new verification link has been sent to the email address you provided during registration.') }}
-        </flux:text>
+        </div>
     @endif
 
-    <div class="flex flex-col items-center justify-between space-y-3">
-        <flux:button wire:click="sendVerification" variant="primary" class="w-full">
-            {{ __('Resend verification email') }}
-        </flux:button>
+    <div class="text-center mb-6">
+        <button wire:click="sendVerification" class="btn btn-primary d-grid w-100 mb-3">
+            {{ __('Resend Verification Email') }}
+        </button>
 
-        <flux:link class="text-sm cursor-pointer" wire:click="logout">
-            {{ __('Log out') }}
-        </flux:link>
+        <button wire:click="logout" class="btn btn-link">
+            {{ __('Log Out') }}
+        </button>
     </div>
 </div>
