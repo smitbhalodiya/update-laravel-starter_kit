@@ -4,12 +4,9 @@
     <a href="{{ url('/') }}" class="app-brand-link"><x-app-logo /></a>
 
     <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
-      <i class="bx menu-toggle-icon d-none d-xl-block fs-4"></i>
-      <i class="bx bx-x d-block d-xl-none fs-4"></i>
+      <i class="bx bx-chevron-left bx-sm d-flex align-items-center justify-content-center"></i>
     </a>
   </div>
-
-  <div class="menu-divider mt-0"></div>
 
   <div class="menu-inner-shadow"></div>
 
@@ -17,8 +14,8 @@
     <!-- Dashboards -->
     <li class="menu-item {{ request()->is('/') ? 'active' : '' }}">
       <a href="{{ url('/') }}" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-home-circle"></i>
-        <div>{{ __('Dashboard') }}</div>
+        <i class="menu-icon tf-icons bx bx-home-smile"></i>
+        <div class="text-truncate">{{ __('Dashboard') }}</div>
       </a>
     </li>
 
@@ -26,17 +23,17 @@
     <li class="menu-item {{ request()->is('settings/*') ? 'active open' : '' }}">
       <a href="javascript:void(0);" class="menu-link menu-toggle">
         <i class="menu-icon tf-icons bx bx-cog"></i>
-        <div>{{ __('Settings') }}</div>
+        <div class="text-truncate">{{ __('Settings') }}</div>
       </a>
       <ul class="menu-sub">
         <li class="menu-item {{ request()->routeIs('settings.profile') ? 'active' : '' }}">
           <a href="{{ route('settings.profile') }}" class="menu-link">
-            <div>{{ __('Profile') }}</div>
+            <div class="text-truncate">{{ __('Profile') }}</div>
           </a>
         </li>
         <li class="menu-item {{ request()->routeIs('settings.password') ? 'active' : '' }}">
           <a href="{{ route('settings.password') }}" class="menu-link">
-            <div>{{ __('Password') }}</div>
+            <div class="text-truncate">{{ __('Password') }}</div>
           </a>
         </li>
         <li class="menu-item {{ request()->routeIs('settings.appearance') ? 'active' : '' }}">
