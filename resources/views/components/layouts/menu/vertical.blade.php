@@ -8,8 +8,8 @@
 
   <ul class="menu-inner py-1">
     <!-- Dashboards -->
-    <li class="menu-item {{ request()->is('/') ? 'active' : '' }}">
-      <a href="{{ url('/') }}" class="menu-link">
+    <li class="menu-item {{ request()->is('dashboard') ? 'active' : '' }}">
+      <a href="{{ url('/dashboard') }}" class="menu-link">
         <i class="menu-icon tf-icons bx bx-home-smile"></i>
         <div class="text-truncate">{{ __('Dashboard') }}</div>
       </a>
@@ -30,11 +30,6 @@
         <li class="menu-item {{ request()->routeIs('settings.password') ? 'active' : '' }}">
           <a href="{{ route('settings.password') }}" class="menu-link">
             <div class="text-truncate">{{ __('Password') }}</div>
-          </a>
-        </li>
-        <li class="menu-item {{ request()->routeIs('settings.appearance') ? 'active' : '' }}">
-          <a href="{{ route('settings.appearance') }}" class="menu-link">
-            <div>{{ __('Appearance') }}</div>
           </a>
         </li>
       </ul>

@@ -26,19 +26,19 @@ jobs:
           tools: composer:v2
           coverage: xdebug
 
-      - name: Setup Node
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
-          cache: 'npm'
+          node-version: "16" # Adjusted to a stable version like 16
+          cache: "npm"
 
       - name: Install Node Dependencies
-        run: npm i
+        run: npm install
 
       - name: Create SQLite Database
         run: touch database/database.sqlite
 
-      - name: Install Dependencies
+      - name: Install Composer Dependencies
         run: composer install --no-interaction --prefer-dist --optimize-autoloader
 
       - name: Copy Environment File
@@ -52,3 +52,7 @@ jobs:
 
       - name: Run Tests
         run: ./vendor/bin/pest
+
+      # Optional: Add a specific step to run PHPUnit tests if Pest isn't set up for all your tests
+      # - name: Run PHPUnit Tests
+      #   run: ./vendor/bin/phpunit
