@@ -3,7 +3,7 @@
 return [
   "creatorName" => "ThemeSelection",
   "creatorUrl" => "https://themeselection.com",
-  "templateName" => "sneat",
+  "templateName" => "Sneat",
   "templateSuffix" => "Laravel Bootstrap Starter Kit",
   "templateVersion" => "1.0.0",
   "templateFree" => true,

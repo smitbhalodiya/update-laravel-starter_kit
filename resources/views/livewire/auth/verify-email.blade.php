@@ -31,6 +31,14 @@ new #[Layout('components.layouts.auth')] class extends Component {
     }
 }; ?>
 
+@section('title', 'Verify Email')
+
+@section('page-style')
+@vite([
+    'resources/assets/vendor/scss/pages/page-auth.scss'
+])
+@endsection
+
 <div>
     <h4 class="mb-1">{{ __('Verify Your Email') }} 📧</h4>
     <p class="mb-6">{{ __('Please verify your email address by clicking on the link we just emailed to you.') }}</p>

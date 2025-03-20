@@ -32,6 +32,14 @@ new #[Layout('components.layouts.auth')] class extends Component {
     }
 }; ?>
 
+@section('title', 'Confirm Password')
+
+@section('page-style')
+@vite([
+    'resources/assets/vendor/scss/pages/page-auth.scss'
+])
+@endsection
+
 <div>
     <h4 class="mb-1">{{ __('Security Verification') }} 🔐</h4>
     <p class="mb-6">{{ __('This is a secure area. Please confirm your password before continuing.') }}</p>

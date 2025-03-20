@@ -22,6 +22,14 @@ new #[Layout('components.layouts.auth')] class extends Component {
     }
 }; ?>
 
+@section('title', 'Forgot Password')
+
+@section('page-style')
+@vite([
+    'resources/assets/vendor/scss/pages/page-auth.scss'
+])
+@endsection
+
 <div>
     <h4 class="mb-1">{{ __('Forgot Password?') }} 🔒</h4>
     <p class="mb-6">{{ __('Enter your email and we\'ll send you instructions to reset your password') }}</p>

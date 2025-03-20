@@ -71,7 +71,15 @@ new #[Layout('components.layouts.auth')] class extends Component {
     {
         return Str::transliterate(Str::lower($this->email).'|'.request()->ip());
     }
-}; ?>
+};
+?>
+@section('title', 'Login Page')
+
+@section('page-style')
+@vite([
+    'resources/assets/vendor/scss/pages/page-auth.scss'
+])
+@endsection
 
 <div>
     <x-auth-header :title="__('Welcome to :app!', ['app' => config('app.name')])" :description="__('Enter your email and password below to log in')" />

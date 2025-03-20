@@ -37,6 +37,14 @@ new #[Layout('components.layouts.auth')] class extends Component {
     }
 }; ?>
 
+@section('title', 'Register Page')
+
+@section('page-style')
+@vite([
+    'resources/assets/vendor/scss/pages/page-auth.scss'
+])
+@endsection
+
 <div>
     <h4 class="mb-1">{{ __('Adventure starts here') }} 🚀</h4>
     <p class="mb-6">{{ __('Make your app management easy and fun!') }}</p>

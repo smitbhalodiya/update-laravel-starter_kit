@@ -6,6 +6,8 @@ new class extends Component {
     //
 }; ?>
 
+@section('title', 'Appearance')
+
 <div class="flex flex-col items-start">
     @include('partials.settings-heading')
 
