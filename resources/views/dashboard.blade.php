@@ -1,3 +1,4 @@
+@section('title', __('Dashboard'))
 <x-layouts.app :title="__('Dashboard')">
     <div class="row g-4">
         <div class="col-lg-4">

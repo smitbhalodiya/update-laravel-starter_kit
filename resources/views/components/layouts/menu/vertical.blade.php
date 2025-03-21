@@ -9,10 +9,7 @@
   <ul class="menu-inner py-1">
     <!-- Dashboards -->
     <li class="menu-item {{ request()->is('dashboard') ? 'active' : '' }}">
-      <a href="{{ url('/dashboard') }}" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-home-smile"></i>
-        <div class="text-truncate">{{ __('Dashboard') }}</div>
-      </a>
+      <a class="menu-link" href="{{ route('dashboard') }}" wire:navigate>{{ __('Dashboard') }}</a>
     </li>
 
     <!-- Settings -->
@@ -23,17 +20,24 @@
       </a>
       <ul class="menu-sub">
         <li class="menu-item {{ request()->routeIs('settings.profile') ? 'active' : '' }}">
-          <a href="{{ route('settings.profile') }}" class="menu-link">
-            <div class="text-truncate">{{ __('Profile') }}</div>
-          </a>
+          <a class="menu-link" href="{{ route('settings.profile') }}" wire:navigate>{{ __('Profile') }}</a>
         </li>
         <li class="menu-item {{ request()->routeIs('settings.password') ? 'active' : '' }}">
-          <a href="{{ route('settings.password') }}" class="menu-link">
-            <div class="text-truncate">{{ __('Password') }}</div>
-          </a>
+          <a class="menu-link" href="{{ route('settings.password') }}" wire:navigate>{{ __('Password') }}</a>
         </li>
       </ul>
     </li>
   </ul>
 </aside>
 <!-- / Menu -->
+
+<script>
+  // Toggle the 'open' class when the menu-toggle is clicked
+  document.querySelectorAll('.menu-toggle').forEach(function(menuToggle) {
+    menuToggle.addEventListener('click', function() {
+      const menuItem = menuToggle.closest('.menu-item');
+      // Toggle the 'open' class on the clicked menu-item
+      menuItem.classList.toggle('open');
+    });
+  });
+</script>

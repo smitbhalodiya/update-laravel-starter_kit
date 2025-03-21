@@ -22,6 +22,17 @@
     <!-- /Search -->
 
     <ul class="navbar-nav flex-row align-items-center ms-md-auto">
+      <li class="nav-item lh-1 me-4">
+        <a
+          class="github-button"
+          href="https://github.com/smitbhalodiya/update-laravel-starter_kit"
+          data-icon="octicon-star"
+          data-size="large"
+          data-show-count="true"
+          aria-label="Star themeselection/sneat-html-admin-template-free on GitHub"
+          >Star</a
+        >
+      </li>
       <!-- User -->
       <li class="nav-item navbar-dropdown dropdown-user dropdown">
         <!-- Check if the user is authenticated -->
@@ -33,7 +44,7 @@
           </a>
           <ul class="dropdown-menu dropdown-menu-end">
             <li>
-              <a class="dropdown-item" href="{{ route('settings.profile') }}">
+              <a class="dropdown-item" href="{{ route('settings.profile') }}" wire:navigate>
                 <div class="d-flex">
                   <div class="flex-shrink-0 me-3">
                     <div class="avatar avatar-online">
@@ -51,12 +62,12 @@
               <div class="dropdown-divider my-1"></div>
             </li>
             <li>
-              <a class="dropdown-item {{ request()->routeIs('settings.profile') ? 'active' : '' }}" href="{{ route('settings.profile') }}">
+              <a class="dropdown-item {{ request()->routeIs('settings.profile') ? 'active' : '' }}" href="{{ route('settings.profile') }}" wire:navigate>
                 <i class="icon-base bx bx-user icon-md me-3"></i><span>My Profile</span>
               </a>
             </li>
             <li>
-              <a class="dropdown-item {{ request()->routeIs('settings.password') ? 'active' : '' }}" href="{{ route('settings.password') }}">
+              <a class="dropdown-item {{ request()->routeIs('settings.password') ? 'active' : '' }}" href="{{ route('settings.password') }}" wire:navigate>
                 <i class="icon-base bx bx-cog icon-md me-3"></i><span>Settings</span>
               </a>
             </li>
